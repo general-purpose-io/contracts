@@ -5,7 +5,7 @@ namespace GeneralPurposeIO\Contracts\Digital;
 use Fabricate\NutsAndBolts\ScrapyardIOException;
 use GeneralPurposeIO\Contracts\Common\GPIOException;
 
-class DigitalPinException extends GPIOException
+class DigitalIOException extends GPIOException
 {
     public static function missingDigitalPinDevice(): static
     {

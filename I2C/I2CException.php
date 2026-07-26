@@ -26,11 +26,6 @@ class I2CException extends GPIOException
         return new static("/dev/i2c-{$master} could not be opened.");
     }
 
-    public static function couldNotOpenMpsseContext(string $device, string $error): static
-    {
-        return new static("MPSSE I2C context for {$device} could not be opened. {$error}");
-    }
-
     public static function missingGpioChipForDigitalPins(): static
     {
         return new static('digitalPins($chip) is required when bundling POSIX digital pins on an I2C bus.');

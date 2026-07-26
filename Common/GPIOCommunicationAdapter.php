@@ -2,7 +2,7 @@
 
 namespace GeneralPurposeIO\Contracts\Common;
 
-interface GPIOProtocolFactory
+interface GPIOCommunicationAdapter
 {
 
 }
