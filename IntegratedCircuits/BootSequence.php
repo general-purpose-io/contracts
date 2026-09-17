@@ -1,6 +1,6 @@
 <?php
 
-namespace GeneralPurposeIO\Contracts\Circuits;
+namespace GeneralPurposeIO\Contracts\IntegratedCircuits;
 
 interface BootSequence
 {
