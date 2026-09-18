@@ -2,9 +2,9 @@
 
 namespace GeneralPurposeIO\Contracts\SPI;
 
-use GeneralPurposeIO\Contracts\Common\GPIOException;
+use GeneralPurposeIO\Contracts\Core\GPIOLevelException;
 
-class SPIException extends GPIOException
+class SPIException extends GPIOLevelException
 {
     public static function missingMasterDevice(): static
     {
@@ -24,5 +24,10 @@ class SPIException extends GPIOException
     public static function missingGpioChipForDigitalPins(): static
     {
         return new static('digitalPins($chip) is required when bundling POSIX digital pins on an SPI bus.');
+    }
+
+    public static function noDriverConfigured(): static
+    {
+        return new static('No SPI connection driver is configured. Set gpio.protocols.spi.default to an installed adapter.');
     }
 }

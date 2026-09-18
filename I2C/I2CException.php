@@ -2,7 +2,7 @@
 
 namespace GeneralPurposeIO\Contracts\I2C;
 
-use GeneralPurposeIO\Contracts\Common\GPIOException;
+use GeneralPurposeIO\Contracts\NutsAndBolts\GPIOException;
 
 class I2CException extends GPIOException
 {
@@ -29,5 +29,10 @@ class I2CException extends GPIOException
     public static function missingGpioChipForDigitalPins(): static
     {
         return new static('digitalPins($chip) is required when bundling POSIX digital pins on an I2C bus.');
+    }
+
+    public static function noDriverConfigured(): static
+    {
+        return new static('No I2C connection driver is configured. Set gpio.protocols.i2c.default to an installed adapter.');
     }
 }

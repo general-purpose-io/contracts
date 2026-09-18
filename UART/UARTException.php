@@ -2,9 +2,9 @@
 
 namespace GeneralPurposeIO\Contracts\UART;
 
-use GeneralPurposeIO\Contracts\Common\GPIOException;
+use GeneralPurposeIO\Contracts\Core\GPIOLevelException;
 
-class UARTException extends GPIOException
+class UARTException extends GPIOLevelException
 {
     public static function missingMasterDevice(): static
     {
@@ -29,5 +29,10 @@ class UARTException extends GPIOException
     public static function couldNotConfigureUARTPort(string $device): static
     {
         return new static("UART port [{$device}] could not be configured.");
+    }
+
+    public static function noDriverConfigured(): static
+    {
+        return new static('No UART connection driver is configured. Set gpio.protocols.uart.default to an installed adapter.');
     }
 }

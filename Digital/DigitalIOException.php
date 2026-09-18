@@ -2,10 +2,9 @@
 
 namespace GeneralPurposeIO\Contracts\Digital;
 
-use Fabricate\Contracts\Core\ScrapyardIOException;
-use GeneralPurposeIO\Contracts\Common\GPIOException;
+use GeneralPurposeIO\Contracts\Core\GPIOLevelException;
 
-class DigitalIOException extends GPIOException
+class DigitalIOException extends GPIOLevelException
 {
     public static function missingDigitalPinDevice(): static
     {
@@ -15,5 +14,10 @@ class DigitalIOException extends GPIOException
     public static function missingDigitalPinOffset(): static
     {
         return new static("DigitalPin offset is missing.");
+    }
+
+    public static function noDriverConfigured(): static
+    {
+        return new static('No DigitalIO connection driver is configured. Set gpio.protocols.digital-in.default to an installed adapter.');
     }
 }
