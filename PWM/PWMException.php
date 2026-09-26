@@ -45,4 +45,19 @@ class PWMException extends GPIOLevelException
     {
         return new static('No PWM connection driver is configured. Set gpio.protocols.pwm.default to an installed adapter.');
     }
+
+    public static function alreadyConnected(int|string $chip): static
+    {
+        return new static("PWM chip {$chip} is already connected.");
+    }
+
+    public static function transportClosed(int $channel): static
+    {
+        return new static("PWM channel {$channel} is closed.");
+    }
+
+    public static function notAttached(int $channel): static
+    {
+        return new static("PWM channel {$channel} was not handed out by a connection driver, so it cannot be offloaded.");
+    }
 }

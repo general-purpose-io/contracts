@@ -12,14 +12,19 @@ class CircuitException extends GPIOLevelException
         return new static("Circuit [{$slug}] is not registered.");
     }
 
-    public static function noSuchProfile(string $name): static
+    public static function noCircuitConfig(string $slug): static
     {
-        return new static("Circuit profile [{$name}] is not defined in config/circuits.php.");
+        return new static("Circuit [{$slug}] has no config at circuits.{$slug}. Publish the chip package's config into config/circuits/{$slug}.php.");
     }
 
-    public static function profileNeeds(string $name, string $key): static
+    public static function noDefaultConfig(string $slug): static
     {
-        return new static("Circuit profile [{$name}] must define a non-empty [{$key}].");
+        return new static("circuits.{$slug} names no default_config, and none was asked for.");
+    }
+
+    public static function noSuchConfig(string $slug, string $config): static
+    {
+        return new static("circuits.{$slug}.configs has no [{$config}].");
     }
 
     public static function noSuchFactory(string $slug, string $class, string $protocol, ?Throwable $previous = null): static
@@ -40,57 +45,5 @@ class CircuitException extends GPIOLevelException
     public static function factoryReturnedNonCircuit(string $slug, string $protocol): static
     {
         return new static("Circuit [{$slug}] protocol [{$protocol}] must return an IntegratedCircuit instance.");
-    }
-
-    public static function protocolRequired(string $slug): static
-    {
-        return new static("Circuit [{$slug}] needs a protocol() before make().");
-    }
-
-    public static function setterNeedsValue(string $name): static
-    {
-        return new static("Circuit fluent setter [{$name}] requires a value.");
-    }
-
-    // ---- scaffolding
-
-    public static function noWiringDeclared(string $class): static
-    {
-        return new static("Class [{$class}] is missing #[IntegratedCircuit] wiring options.");
-    }
-
-    public static function noUsableWiring(string $class): static
-    {
-        return new static("Class [{$class}] declares no usable #[IntegratedCircuit] wiring options.");
-    }
-
-    public static function badProfileName(string $name): static
-    {
-        return new static("Profile name [{$name}] must be a simple identifier (letters, numbers, _ or -).");
-    }
-
-    public static function configNotPublished(string $path): static
-    {
-        return new static("Circuits config not found at [{$path}]. Publish it first: workshop vendor:publish --tag=gpio-circuits-config");
-    }
-
-    public static function configUnreadable(string $path): static
-    {
-        return new static("Unable to read circuits config at [{$path}].");
-    }
-
-    public static function configUnwritable(string $path): static
-    {
-        return new static("Unable to write circuits config at [{$path}].");
-    }
-
-    public static function profileExists(string $name, string $path): static
-    {
-        return new static("Circuit profile [{$name}] already exists in [{$path}].");
-    }
-
-    public static function configNotAnArray(): static
-    {
-        return new static('Circuits config does not look like a PHP array return (missing closing ];).');
     }
 }

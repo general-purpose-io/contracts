@@ -3,9 +3,8 @@
 namespace GeneralPurposeIO\Contracts\IntegratedCircuits;
 
 /**
- * The chip catalog and build surface. A package registers the chip types it
- * ships; an app names a recipe in config/circuits.php; either way what comes
- * back is a live IntegratedCircuit.
+ * The chip catalog. A chip package says what it ships; an app wires it in
+ * config/circuits/<slug>.php; conjure() hands back the live chip.
  */
 interface CircuitRegistry
 {
@@ -20,14 +19,12 @@ interface CircuitRegistry
     /** @return class-string<IntegratedCircuit> */
     public function resolveClass(string $slug): string;
 
-    /** Build from a named recipe in config/circuits.php. */
-    public function profile(string $name): IntegratedCircuit;
+    /**
+     * Build the chip from config('circuits.<slug>.configs.<config>'); null
+     * means the chip's default_config.
+     */
+    public function conjure(string $slug, ?string $config = null): IntegratedCircuit;
 
     /** @param array<string, mixed> $params */
     public function build(string $slug, string $protocol, array $params): IntegratedCircuit;
-
-    /** A console command a package registered to scaffold profiles for this chip. */
-    public function registerProfileCommand(string $slug, string $command): void;
-
-    public function profileCommand(string $slug): ?string;
 }

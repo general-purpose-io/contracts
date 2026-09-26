@@ -17,4 +17,9 @@ interface PWMTransport extends GPIOTransport
 
     public function getPolarity(): bool;
     public function setPolarity(bool $value): bool;
+
+    public function channel(): int;
+
+    /** The same calls as promises. Null target: the adapter's own async path. */
+    public function via(?string $target = null): OffloadedPWM;
 }
