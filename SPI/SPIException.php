@@ -71,9 +71,9 @@ class SPIException extends GPIOLevelException
         return new static("SPI chip select {$chip_select} was not handed out by a connection driver, so it cannot be offloaded.");
     }
 
-    public static function offloadTargetUnsupported(string $target): static
+    public static function offloadPoolUnsupported(string $pool): static
     {
-        return new static("MPSSE SPI transfers run on the device's own USB pump; they cannot go to the [{$target}] work target.");
+        return new static("MPSSE SPI transfers run on the device's own USB pump; they cannot go to the [{$pool}] worker pool.");
     }
 
     public static function busSettingsUnknown(int|string $device): static

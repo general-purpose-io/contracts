@@ -4,7 +4,7 @@ namespace GeneralPurposeIO\Contracts\Core;
 
 use RuntimeException;
 use Throwable;
-use Voyager\Contracts\IOPools\RemoteException;
+use Voyager\Contracts\IOPools\WorkerPools\RemoteException;
 
 /** Root of every exception this framework throws. Catch one type without naming a protocol. */
 class GPIOLevelException extends RuntimeException
@@ -19,14 +19,10 @@ class GPIOLevelException extends RuntimeException
         return new static('via() needs an event loop. Boot IOPools, or call the blocking method.');
     }
 
-    public static function noWorkTargets(): static
+    /** A driver made outside its connection manager has nothing to find a worker pool with. */
+    public static function noWorkerPools(): static
     {
-        return new static('via() needs the IOPools work targets bound in the container (work-targets).');
-    }
-
-    public static function offloadTargetDiscardsResult(string $target): static
-    {
-        return new static("The [{$target}] work target hands back a queued job, not the call's result: via() cannot use it.");
+        return new static('via() offloads to a worker pool, and this driver has no way to find one: make it through its connection manager.');
     }
 
     /** One FTDI interface runs one engine: a UART, or MPSSE for I2C, SPI and DigitalIO. */
@@ -46,7 +42,7 @@ class GPIOLevelException extends RuntimeException
             return $e;
         }
 
-        $prefix = "[{$e->remote_class}] ";
+        $prefix = "{$e->remote_class}: ";
         $message = str_starts_with($e->getMessage(), $prefix) ? substr($e->getMessage(), strlen($prefix)) : $e->getMessage();
 
         return new ($e->remote_class)($message, 0, $e);        // the worker's trace stays reachable as getPrevious()

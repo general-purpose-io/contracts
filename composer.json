@@ -1,6 +1,6 @@
 {
     "name": "gpio/contracts",
-    "description": "GeneralPurposeIO contracts: transports, protocol enums and exceptions, the gpio dock resource, its sources and its mail.",
+    "description": "GeneralPurposeIO contracts: transports, offloaded transports, protocol enums, exceptions, BusJob, the chip vocabulary and the loop mail.",
     "type": "library",
     "keywords": [
         "scrapyard-io",
@@ -22,8 +22,7 @@
     ],
     "require": {
         "php": "^8.4|^8.5|^8.6",
-        "venusian-voyager/contracts": "^0.9.0",
-        "venusian-voyager/io-pools": "^0.9.0"
+        "venusian-voyager/contracts": "^0.10.0"
     },
     "autoload": {
         "psr-4": {

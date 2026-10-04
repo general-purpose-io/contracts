@@ -2,12 +2,12 @@
 
 namespace GeneralPurposeIO\Contracts\Digital;
 
-use Voyager\Contracts\IOPools\Event;
+use Voyager\Contracts\Signals\NamedSignal;
 
 /**
  * One edge on one pin. Mailed as gpio.edge.<device>.<pin>; crosses a worker or Redis wire through toData()/fromData().
  */
-class DigitalEdgeEvent extends Event
+class DigitalEdgeEvent implements NamedSignal
 {
     /**
      *

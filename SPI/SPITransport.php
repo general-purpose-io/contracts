@@ -27,6 +27,6 @@ interface SPITransport extends GPIOTransport
 
     public function chipSelect(): int;
 
-    /** The same calls as promises. Null target: the adapter's own async path. */
-    public function via(?string $target = null): OffloadedSPI;
+    /** The same calls as promises. Null pool: the adapter's own async path ('thread' or 'process' names a worker pool). */
+    public function via(?string $pool = null): OffloadedSPI;
 }

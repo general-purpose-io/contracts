@@ -51,8 +51,8 @@ class I2CException extends GPIOException
         return new static("{$length} bytes is longer than the 8192-byte I2C message limit.");
     }
 
-    public static function offloadTargetUnsupported(string $target): static
+    public static function offloadPoolUnsupported(string $pool): static
     {
-        return new static("MPSSE I2C transfers run on the device's own USB pump; they cannot go to the [{$target}] work target.");
+        return new static("MPSSE I2C transfers run on the device's own USB pump; they cannot go to the [{$pool}] worker pool.");
     }
 }

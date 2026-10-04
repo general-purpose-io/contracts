@@ -2,13 +2,13 @@
 
 namespace GeneralPurposeIO\Contracts\UART;
 
-use Voyager\Contracts\IOPools\Event;
+use Voyager\Contracts\Signals\NamedSignal;
 
 /**
  * One chunk of bytes from one port. Mailed as gpio.uart.<device>; crosses a worker or Redis wire through
  * toData()/fromData(), with the bytes base64-encoded so a JSON wire carries any byte.
  */
-class UARTReceived extends Event
+class UARTReceived implements NamedSignal
 {
     /**
      * @param int $timestamp CLOCK_MONOTONIC ns when the bytes were collected

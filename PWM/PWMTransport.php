@@ -20,6 +20,6 @@ interface PWMTransport extends GPIOTransport
 
     public function channel(): int;
 
-    /** The same calls as promises. Null target: the adapter's own async path. */
-    public function via(?string $target = null): OffloadedPWM;
+    /** The same calls as promises. Null pool: the adapter's own async path ('thread' or 'process' names a worker pool). */
+    public function via(?string $pool = null): OffloadedPWM;
 }
